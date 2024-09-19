@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth text-black;
+  }
+
+  body {
+    @apply flex flex-col min-h-screen;
+  }
+
+  button,
+  a,
+  path,
+  img,
+  svg,
+  li,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply transition-all duration-300 disabled:opacity-50;
+  }
+
+  input,
+  textarea {
+    @apply ring-0 outline-none border border-blue-27 bg-white rounded-md w-full px-5 placeholder:text-gray xl:text-lg text-base xl:leading-[23.4px] leading-[20.8px];
+  }
+
+  input {
+    @apply h-[50px];
+  }
+
+  textarea {
+    @apply min-h-[93px] py-3.5;
+  }
+}
+
+@layer components {
+  .btnMain {
+    @apply bg-azure h-[50px] max-w-[220px] w-full rounded-md xl:text-lg text-base xl:leading-[23.4px] leading-[20.8px] text-center text-white hover:bg-azure-hover;
+  }
+
+  .colabBgGradientBlue {
+    background: linear-gradient(160.8deg, #015fa7 9.8%, #0d6bb2 90.2%);
+  }
+
+  #contact .contactList .itemList {
+    @apply flex flex-col gap-1.5;
+  }
+
+  #contact .contactList .itemList span {
+    @apply xl:text-lg text-base xl:leading-[23.4px] leading-[20.8px];
+  }
+
+  #contact .contactList .itemList address,
+  #contact .contactList .itemList a,
+  #contact .contactList .itemList p {
+    @apply font-semibold xl:text-[26px] text-2xl xl:leading-[33.8px] leading-[31.2px];
+  }
+
+  #contact .contactList .itemList a {
+    @apply hover:text-azure-hover;
+  }
+}
+
+@layer utilities {
+  .container-conf input[type="checkbox"]:checked ~ .icon-checked {
+    @apply opacity-100;
+  }
+
+  #handleMobileMenu.active .closeIcon {
+    @apply opacity-100;
+  }
+
+  #handleMobileMenu:not(.active) .burgerIcon {
+    @apply opacity-100;
+  }
+
+  #handleMobileMenu svg {
+    @apply absolute opacity-0;
+  }
+
+  #handleMobileTelMenu.active {
+    @apply rotate-90;
+  }
+
+  #btnTop.visible {
+    @apply z-[1] opacity-100;
+  }
+
+  .hover-opacity {
+    @apply hover:opacity-75;
+  }
+
+  .mobileMenu {
+    @apply h-screen fixed inset-0 trans bg-white justify-center opacity-0 transition-all duration-500 items-center z-[2] xl:!hidden backdrop-blur-md hidden w-full;
+  }
+
+  address {
+    @apply not-italic;
+  }
+
+  .mobileMenu.open {
+    @apply block opacity-100;
+  }
+
+  .swiper-slide {
+    @apply select-none cursor-pointer;
+  }
+
+  .list-enable ul,
+  .list-enable ol {
+    @apply list-inside;
+  }
+
+  .list-enable ul {
+    @apply list-disc;
+  }
+
+  .list-enable ol {
+    @apply list-decimal;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      @apply opacity-0;
+    }
+
+    100% {
+      @apply opacity-100;
+    }
+  }
+
+  .text-transform-inherit {
+    text-transform: inherit;
+  }
+
+  .modal {
+    @apply fixed z-[3] trans opacity-0 h-screen xl:px-0 px-2.5 w-full bg-white/50 backdrop-blur-md hidden inset-0 justify-center items-center;
+  }
+
+  .modal.open {
+    @apply flex opacity-100;
+  }
+
+  .closeModal {
+    @apply xl:p-[30px] p-2.5 xl:-m-[30px] -m-2.5 flex-shrink-0 xl:top-[30px] top-2.5 xl:right-[30px] right-2.5 absolute flex justify-center items-center;
+  }
+
+  .closeModal svg {
+    @apply w-9 h-9;
+  }
+
+  .closeModal:hover svg path {
+    @apply hover:stroke-red;
+  }
+
+  .min-scroll::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  /* Track */
+  .min-scroll::-webkit-scrollbar-track {
+    -webkit-border-radius: 14px;
+    border-radius: 14px;
+  }
+
+  /* Handle */
+  .min-scroll::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+    @apply bg-[#1DCFC5];
+  }
+
+  .min-scroll::-webkit-scrollbar-thumb:window-inactive {
+    @apply bg-[#1DCFC5];
+  }
+
+  .trans {
+    @apply transition-all duration-500;
+    transition-behavior: allow-discrete;
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  }
+}
