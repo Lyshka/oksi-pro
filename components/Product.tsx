@@ -19,7 +19,7 @@ const Product = () => {
       <ul className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-x-6 md:gap-y-12 gap-y-[30px]">
         {products.map(({ desc, id, img, subDesc, title }) => (
           <li key={id} className="space-y-2.5 group">
-            <div className="flex justify-center items-center xl:w-[282px] xl:h-[290px] border border-blue-27 hover:border-blue transition-all duration-300 rounded-xl">
+            <div className="flex justify-center items-center xl:w-[282px] xl:h-[290px] border border-blue-27 hover:border-blue transition-all duration-300 rounded-xl p-4">
               <Image
                 src={img}
                 alt={title}
