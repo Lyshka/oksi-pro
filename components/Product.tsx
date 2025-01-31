@@ -1,8 +1,26 @@
-import { products } from "@/constants/products";
+"use client"
+
 import Title from "./Title";
 import Image from "next/image";
+import axios from "axios";
 
-const Product = () => {
+type product = {
+  id: number
+  title: {
+    rendered: string
+  }
+  content: {
+    rendered: string
+  }
+  excerpt: {
+    rendered: string
+  }
+  featured_image_url: string
+}
+
+const Product = async () => {
+  const { data: products } = await axios.get<product[]>('https://admin.oksipro.by/wp-json/wp/v2/product');
+
   return (
     <main id="product" className="flex flex-col xl:gap-[50px] gap-[30px] items-center scroll-mt-24">
       <div className="text-center flex flex-col gap-5 items-center xl:max-w-[764px] w-full">
@@ -17,26 +35,33 @@ const Product = () => {
       </div>
 
       <ul className="grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-x-6 md:gap-y-12 gap-y-[30px]">
-        {products.map(({ desc, id, img, subDesc, title }) => (
+        {products.map(({ content, featured_image_url, id, title, excerpt }) => (
           <li key={id} className="space-y-2.5 group">
             <div className="flex justify-center items-center xl:w-[282px] xl:h-[290px] border border-blue-27 hover:border-blue transition-all duration-300 rounded-xl p-4">
-              <Image
-                src={img}
-                alt={title}
-                width={282}
-                height={290}
-                className="object-contain h-full w-full group-hover:scale-95"
-              />
+              {featured_image_url && (
+                <Image
+                  src={featured_image_url}
+                  alt={title?.rendered ?? ''}
+                  width={282}
+                  height={290}
+                  className="object-contain h-full w-full group-hover:scale-95"
+                />
+              )}
+
             </div>
 
             <div className="space-y-2">
-              <h2 className="group-hover:text-blue-27 xl:text-4xl text-2xl xl:leading-[46.8px] leading-[33.8px] font-semibold">
-                {title}
-              </h2>
+              {title && (
+                <h2 className="group-hover:text-blue-27 xl:text-4xl text-2xl xl:leading-[46.8px] leading-[33.8px] font-semibold">
+                  {title.rendered}
+                </h2>
+              )}
 
-              <p className="xl:text-xl text-lg xl:leading-[26px] leading-[23.4px] font-semibold">{desc}</p>
+              {content && (
+                <p dangerouslySetInnerHTML={{ __html: content.rendered }} className="xl:text-xl text-lg xl:leading-[26px] leading-[23.4px] font-semibold" />
+              )}
 
-              {subDesc && <p className="xl:text-lg text-base xl:leading-[23.4px] leading-[20.8px]">{subDesc}</p>}
+              {!content?.rendered?.includes(excerpt?.rendered) && <p dangerouslySetInnerHTML={{ __html: excerpt.rendered }} className="xl:text-lg text-base xl:leading-[23.4px] leading-[20.8px]" />}
             </div>
           </li>
         ))}
