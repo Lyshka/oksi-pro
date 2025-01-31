@@ -3,8 +3,9 @@
 import Title from "./Title";
 import Image from "next/image";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
-type product = {
+type Product = {
   id: number
   title: {
     rendered: string
@@ -18,8 +19,23 @@ type product = {
   featured_image_url: string
 }
 
-const Product = async () => {
-  const { data: products } = await axios.get<product[]>('https://admin.oksipro.by/wp-json/wp/v2/product');
+const Product = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data } = await axios.get<Product[]>(
+          "https://admin.oksipro.by/wp-json/wp/v2/product"
+        );
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <main id="product" className="flex flex-col xl:gap-[50px] gap-[30px] items-center scroll-mt-24">
